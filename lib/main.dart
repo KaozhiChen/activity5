@@ -12,6 +12,8 @@ class DigitalPetApp extends StatefulWidget {
   _DigitalPetAppState createState() => _DigitalPetAppState();
 }
 
+final TextEditingController _nameController = TextEditingController();
+
 class _DigitalPetAppState extends State<DigitalPetApp> {
   String petName = "Your Pet";
   int happinessLevel = 50;
@@ -161,6 +163,12 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
     }
   }
 
+  void _setPetName() {
+    setState(() {
+      petName = _nameController.text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,6 +183,20 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
               radius: 100,
               backgroundImage: AssetImage('assets/YellowDog.png'),
               backgroundColor: _getPetColor(),
+            ),
+            ElevatedButton(
+              onPressed: _setPetName,
+              child: const Text('Set Pet Name'),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+              child: TextField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter Pet Name',
+                ),
+              ),
             ),
             Text(
               'Name: $petName',
